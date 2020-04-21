@@ -9,36 +9,36 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import pl.zuzu.game.Game;
 import pl.zuzu.game.GameMode;
-import pl.zuzu.game.Hangman;
 import pl.zuzu.ui.gui.GuiGame;
 
 import java.io.IOException;
 import java.net.URL;
 
 public class HomeController {
+    Game game = Game.getInstance();
 
     @FXML
     public void startOnePlayerGame(ActionEvent event) throws IOException {
-        Game.getInstance().setMode(GameMode.ONE_PLAYER);
-        Game.getInstance().getWordDatabase().init();
-        Game.getInstance().setRandomWordForHangman();
+        game.setMode(GameMode.ONE_PLAYER);
+        game.getWordDatabase().init();
+        game.setRandomWordForHangman();
 
 
-        changeSceneToGame(event);
+        changeScene(event, "game.fxml");
     }
 
     @FXML
     public void startTwoPlayersGame(ActionEvent event) throws IOException {
-        Game.getInstance().setMode(GameMode.TWO_PLAYERS);
+        game.setMode(GameMode.TWO_PLAYERS);
 
-        changeSceneToGame(event);
+        changeScene(event, "game.fxml");
     }
 
-    private void changeSceneToGame(ActionEvent event) throws IOException {
+    private void changeScene(ActionEvent event, String name) throws IOException {
         final Button clickedButton = (Button) event.getTarget();
         Stage stage = (Stage) clickedButton.getScene().getWindow();
 
-        final URL homeResource = GuiGame.class.getClassLoader().getResource("game.fxml");
+        final URL homeResource = GuiGame.class.getClassLoader().getResource(name);
         final Pane homePane = FXMLLoader.load(homeResource);
         final Scene scene = new Scene(homePane);
         stage.setScene(scene);

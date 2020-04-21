@@ -3,7 +3,6 @@ package pl.zuzu.game;
 import pl.zuzu.TooManyMistakesException;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -54,7 +53,7 @@ public class Hangman {
             return -1;
         }
 
-        if(isWon()){
+        if (isWon()) {
             status = Status.GUESSED;
         }
         return 1;
@@ -69,11 +68,11 @@ public class Hangman {
         return stringBuilder.toString();
     }
 
-    private boolean isWon(){
+    private boolean isWon() {
         return usedCharacters.containsAll(charsOfWord);
     }
 
-    public boolean isEnd(){
+    public boolean isEnd() {
         return status.equals(Status.GUESSED) || status.equals(Status.SIXTH_MISTAKE);
     }
 

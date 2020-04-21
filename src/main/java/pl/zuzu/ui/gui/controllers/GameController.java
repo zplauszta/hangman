@@ -15,12 +15,12 @@ import pl.zuzu.game.Game;
 import pl.zuzu.game.Status;
 import pl.zuzu.ui.gui.GuiGame;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
+    Game game = Game.getInstance();
 
     @FXML
     TextField fieldWithChar;
@@ -50,35 +50,46 @@ public class GameController implements Initializable {
     }
 
     public void enterLetter(ActionEvent event) throws TooManyMistakesException, IOException {
-        final Game game = Game.getInstance();
         char letter = fieldWithChar.getText().charAt(0);
         int stateOfGuess = game.getHangman().checkLetter(letter);
         guessedLetters.setText(game.getHangman().getGuessedLetters());
         if (stateOfGuess == -1) {
-            final String url = imageOfHangman.getImage().getUrl();
-            final int fileName = Integer.parseInt(url.substring(url.length() - 5, url.length() - 4)) + 1;
-            imageOfHangman.setImage(new Image("file:/D:/projekty/hangman/target/classes/" + fileName + ".jpg"));
+            changeImage();
         }
+        changeTextFields();
+
+        if (game.getHangman().isEnd()) {
+            displayAlert();
+            changeScene(event, "home.fxml");
+            game.resetGame();
+        }
+    }
+
+    private void displayAlert() {
+        String message;
+        if (game.getHangman().getStatus().equals(Status.GUESSED)) {
+            message = "Congrats! You guess the word "
+                    + game.getHangman().getWord() + " :)";
+        } else {
+            message = "Buu! You lose. The word was "
+                    + game.getHangman().getWord();
+        }
+        makeAlert(message).showAndWait();
+    }
+
+    private void changeTextFields() {
         fieldWithChar.setText("");
         StringBuilder letters = new StringBuilder();
         for (Character usedCharacter : game.getHangman().getUsedCharacters()) {
             letters.append(usedCharacter).append("  ");
         }
         usedLetters.setText(letters.toString());
+    }
 
-        if (game.getHangman().isEnd()) {
-            String message;
-            if (game.getHangman().getStatus().equals(Status.GUESSED)) {
-                message = "Congrats! You guess the word "
-                        + game.getHangman().getWord() + " :)";
-            } else {
-                message = "Buu! You lose. The word was "
-                        + game.getHangman().getWord();
-            }
-            makeAlert(message).showAndWait();
-
-            changeScene(event, "home.fxml");
-        }
+    private void changeImage() {
+        final String url = imageOfHangman.getImage().getUrl();
+        final int fileName = Integer.parseInt(url.substring(url.length() - 5, url.length() - 4)) + 1;
+        imageOfHangman.setImage(new Image("file:/D:/projekty/hangman/target/classes/" + fileName + ".jpg"));
     }
 
     private Alert makeAlert(String message) {
