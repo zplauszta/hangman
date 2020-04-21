@@ -1,3 +1,7 @@
+package pl.zuzu.game;
+
+import pl.zuzu.TooManyMistakesException;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -25,14 +29,14 @@ public class Hangman {
         return status;
     }
 
-    public void addMistake() throws ToManyMistakesException {
+    public void addMistake() throws TooManyMistakesException {
         if (status.equals(Status.SIXTH_MISTAKE)) {
-            throw new ToManyMistakesException();
+            throw new TooManyMistakesException();
         }
         status = Status.values()[status.ordinal() + 1];
     }
 
-    public int checkLetter(char c) throws ToManyMistakesException {
+    public int checkLetter(char c) throws TooManyMistakesException { //FIXME return enum
         if (usedCharacters.contains(c)) {
             return 0;
         }

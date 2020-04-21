@@ -116,5 +116,8 @@ fabric.properties
 .idea/jarRepositories.xml
 .idea/misc.xml
 .idea/uiDesigner.xml
-src/main/resources/
-src/test/
+
+.idea/**
+*.iml
+*.ipr
+*.iws

@@ -1,3 +1,5 @@
+package pl.zuzu.game;
+
 public enum Status {
     ZERO_MISTAKE,
     FIRST_MISTAKE,

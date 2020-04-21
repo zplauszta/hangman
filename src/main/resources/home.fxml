@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="HomeController" fx:id="pane">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <HBox layoutX="114.0" layoutY="239.0" prefHeight="50.0" prefWidth="359.0">
+               <children>
+                  <Button id="buttonPlayerOne" mnemonicParsing="false" onAction="#startOnePlayerGame" prefHeight="50.0" prefWidth="120.0" text="1 Player">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Button>
+                  <Button id="buttonPlayerTwo" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="50.0" prefWidth="120.0" text="2 Players" textAlignment="RIGHT">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="120.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <Label contentDisplay="CENTER" layoutX="186.0" layoutY="64.0" prefHeight="64.0" prefWidth="214.0" text="Hangman">
+               <font>
+                  <Font name="Calibri Bold Italic" size="52.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
