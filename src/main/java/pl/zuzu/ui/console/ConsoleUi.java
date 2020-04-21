@@ -15,8 +15,9 @@ public class ConsoleUi {
     static Scanner sc = new Scanner(System.in);
 
     public static void gameLoop() throws TooManyMistakesException {
-        Game game = new Game();
+
         Random random = new Random();
+        final Game game = Game.getInstance();
         game.getWordDatabase().init();
         game.setMode(getGameMode());
 

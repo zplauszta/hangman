@@ -2,7 +2,9 @@ package pl.zuzu.game;
 
 import pl.zuzu.TooManyMistakesException;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -10,7 +12,7 @@ public class Hangman {
     final private String word;
     private Status status;
     final Set<Character> charsOfWord;
-    final private Set<Character> usedCharacters;
+    final private List<Character> usedCharacters;
 
     public Hangman(String word) {
         this.word = word;
@@ -18,7 +20,7 @@ public class Hangman {
         charsOfWord = word.chars()
                 .mapToObj(e -> (char) e)
                 .collect(Collectors.toSet());
-        usedCharacters = new HashSet<>();
+        usedCharacters = new ArrayList<Character>();
     }
 
     public String getWord() {
@@ -27,6 +29,10 @@ public class Hangman {
 
     public Status getStatus() {
         return status;
+    }
+
+    public List<Character> getUsedCharacters() {
+        return usedCharacters;
     }
 
     public void addMistake() throws TooManyMistakesException {

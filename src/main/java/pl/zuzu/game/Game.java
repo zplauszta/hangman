@@ -2,11 +2,29 @@ package pl.zuzu.game;
 
 import pl.zuzu.WordDatabase;
 
+import java.util.List;
+import java.util.Random;
+
 public class Game {
+
+    public static Game INSTANCE = new Game();
 
     private GameMode mode;
     private Hangman hangman;
-    private WordDatabase wordDatabase = new WordDatabase();
+    final private WordDatabase wordDatabase = new WordDatabase();
+
+    private Game() {
+        if (INSTANCE != null) {
+            throw new IllegalStateException("Game already constructed");
+        }
+    }
+
+    public static Game getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new Game();
+        }
+        return INSTANCE;
+    }
 
     public GameMode getMode() {
         return mode;
@@ -26,5 +44,16 @@ public class Game {
 
     public void setHangman(Hangman hangman) {
         this.hangman = hangman;
+    }
+
+    public void resetGame() {
+        INSTANCE = null;
+    }
+
+    public void setRandomWordForHangman(){
+        Random random = new Random();
+        final List<String> words = Game.getInstance().getWordDatabase().getWords();
+        String word = words.get(random.nextInt(words.size()));
+        hangman = new Hangman(word);
     }
 }

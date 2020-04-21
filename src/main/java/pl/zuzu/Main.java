@@ -1,7 +1,6 @@
 package pl.zuzu;
 
 import javafx.application.Application;
-import pl.zuzu.game.Game;
 import pl.zuzu.ui.gui.GuiGame;
 
 import java.util.*;
