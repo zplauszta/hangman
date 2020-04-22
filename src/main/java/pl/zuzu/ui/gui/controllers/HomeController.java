@@ -14,6 +14,8 @@ import pl.zuzu.ui.gui.GuiGame;
 import java.io.IOException;
 import java.net.URL;
 
+import static pl.zuzu.ui.gui.controllers.SceneChanger.changeScene;
+
 public class HomeController {
     Game game;
 
@@ -33,16 +35,5 @@ public class HomeController {
         game.setMode(GameMode.TWO_PLAYERS);
 
         changeScene(event, "game.fxml");
-    }
-
-    private void changeScene(ActionEvent event, String name) throws IOException {
-        final Button clickedButton = (Button) event.getTarget();
-        Stage stage = (Stage) clickedButton.getScene().getWindow();
-
-        final URL homeResource = GuiGame.class.getClassLoader().getResource(name);
-        final Pane homePane = FXMLLoader.load(homeResource);
-        final Scene scene = new Scene(homePane);
-        stage.setScene(scene);
-        stage.show();
     }
 }

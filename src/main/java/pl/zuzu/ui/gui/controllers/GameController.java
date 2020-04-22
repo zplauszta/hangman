@@ -19,44 +19,53 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static pl.zuzu.ui.gui.controllers.SceneChanger.changeScene;
+
 public class GameController implements Initializable {
-    Game game = Game.getInstance();
+    @FXML
+    private TextField fieldWithChar;
 
     @FXML
-    TextField fieldWithChar;
+    private ImageView imageOfHangman;
 
     @FXML
-    ImageView imageOfHangman;
+    private Label guessedLetters;
 
     @FXML
-    Label guessedLetters;
-
-    @FXML
-    TextArea usedLetters;
+    private TextArea usedLetters;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        TextField textField = new TextField();
-        textField.setTextFormatter(new TextFormatter<String>((TextFormatter.Change change) -> {
-            String newText = change.getControlNewText();
-            if (newText.length() > 1) {
-                return null;
-            } else {
-                return change;
-            }
-        }));
-
+        fieldWithChar.setTextFormatter(new TextFormatter<String>(this::limitToOneSign));
         guessedLetters.setText(Game.getInstance().getHangman().getGuessedLetters());
     }
 
+    private TextFormatter.Change limitToOneSign(TextFormatter.Change change) {
+        String newText = change.getControlNewText();
+        if (newText.length() > 1) {
+            return null;
+        } else {
+            return change;
+        }
+    }
+
     public void enterLetter(ActionEvent event) throws TooManyMistakesException, IOException {
-        char letter = fieldWithChar.getText().charAt(0);
+        if (fieldWithChar.getText().equals("")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Important Message");
+            alert.setHeaderText(null);
+            alert.setContentText("enter the letter!");
+            alert.showAndWait();
+            return;
+        }
+        char letter = fieldWithChar.getText().toLowerCase().charAt(0);
+        final Game game = Game.getInstance();
         int stateOfGuess = game.getHangman().checkLetter(letter);
         guessedLetters.setText(game.getHangman().getGuessedLetters());
         if (stateOfGuess == -1) {
-            changeImage();
+            changeImage(game.getHangman().getStatus());
         }
-        changeTextFields();
+        updateScene();
 
         if (game.getHangman().isEnd()) {
             displayAlert();
@@ -67,6 +76,7 @@ public class GameController implements Initializable {
 
     private void displayAlert() {
         String message;
+        final Game game = Game.getInstance();
         if (game.getHangman().getStatus().equals(Status.GUESSED)) {
             message = "Congrats! You guess the word "
                     + game.getHangman().getWord() + " :)";
@@ -77,19 +87,19 @@ public class GameController implements Initializable {
         makeAlert(message).showAndWait();
     }
 
-    private void changeTextFields() {
+    private void updateScene() {
         fieldWithChar.setText("");
         StringBuilder letters = new StringBuilder();
-        for (Character usedCharacter : game.getHangman().getUsedCharacters()) {
+        for (Character usedCharacter : Game.getInstance().getHangman().getUsedCharacters()) {
             letters.append(usedCharacter).append("  ");
         }
         usedLetters.setText(letters.toString());
     }
 
-    private void changeImage() {
-        final String url = imageOfHangman.getImage().getUrl();
-        final int fileName = Integer.parseInt(url.substring(url.length() - 5, url.length() - 4)) + 1;
-        imageOfHangman.setImage(new Image("file:/D:/projekty/hangman/target/classes/" + fileName + ".jpg"));
+    private void changeImage(Status status) {
+        String name = status.ordinal() + ".jpg";
+        final URL resource = GuiGame.class.getClassLoader().getResource(name);
+        imageOfHangman.setImage(new Image(resource.toString()));
     }
 
     private Alert makeAlert(String message) {
@@ -98,15 +108,5 @@ public class GameController implements Initializable {
         alert.setHeaderText(null);
         alert.setContentText(message);
         return alert;
-    }
-
-    private void changeScene(ActionEvent event, String name) throws IOException {
-        final Button clickedButton = (Button) event.getTarget();
-        Stage stage = (Stage) clickedButton.getScene().getWindow();
-        final URL homeResource = GuiGame.class.getClassLoader().getResource(name);
-        final Pane homePane = FXMLLoader.load(homeResource);
-        final Scene scene = new Scene(homePane);
-        stage.setScene(scene);
-        stage.show();
     }
 }
