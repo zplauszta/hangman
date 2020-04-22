@@ -15,20 +15,21 @@ import java.io.IOException;
 import java.net.URL;
 
 public class HomeController {
-    Game game = Game.getInstance();
+    Game game;
 
     @FXML
     public void startOnePlayerGame(ActionEvent event) throws IOException {
+        game = Game.getInstance();
         game.setMode(GameMode.ONE_PLAYER);
         game.getWordDatabase().init();
         game.setRandomWordForHangman();
-
 
         changeScene(event, "game.fxml");
     }
 
     @FXML
     public void startTwoPlayersGame(ActionEvent event) throws IOException {
+        game = Game.getInstance();
         game.setMode(GameMode.TWO_PLAYERS);
 
         changeScene(event, "game.fxml");
