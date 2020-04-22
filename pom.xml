@@ -16,11 +16,6 @@
         <javafx.version>11</javafx.version>
     </properties>
 
-    <organization>
-        <!-- Used as the 'Vendor' for JNLP generation -->
-        <name>Zuzu</name>
-    </organization>
-
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -35,23 +30,12 @@
     </dependencies>
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
-                <configuration>
-                    <release>${maven.compiler.release}</release>
-                </configuration>
-            </plugin>
             <plugin> <!-- https://github.com/openjfx/javafx-maven-plugin -->
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
-                    <jlinkImageName>hangman</jlinkImageName>
-                    <jlinkZipName>hangman</jlinkZipName>
-                    <launcher>launcher</launcher>
-                    <mainClass>hangman/pl.zuzu.Main</mainClass>
+                    <mainClass>pl.zuzu.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
