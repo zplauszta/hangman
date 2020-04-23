@@ -1,4 +1,4 @@
-package pl.zuzu.game;
+package pl.plauszta.game;
 
 import java.util.List;
 import java.util.Random;

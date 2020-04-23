@@ -1,17 +1,15 @@
-package pl.zuzu.ui.gui.controllers;
+package pl.plauszta.ui.gui.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
-import pl.zuzu.game.Game;
-import pl.zuzu.game.GameMode;
+import pl.plauszta.game.Game;
+import pl.plauszta.game.GameMode;
 
 import java.io.IOException;
 import java.util.Optional;
 
-import static pl.zuzu.ui.gui.controllers.SceneChanger.changeScene;
+import static pl.plauszta.ui.gui.controllers.SceneChanger.changeScene;
 
 public class HomeController {
     Game game;

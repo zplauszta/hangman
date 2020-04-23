@@ -1,4 +1,4 @@
-package pl.zuzu.ui.gui.controllers;
+package pl.plauszta.ui.gui.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -6,19 +6,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import pl.zuzu.TooManyMistakesException;
-import pl.zuzu.game.Game;
-import pl.zuzu.game.GameMode;
-import pl.zuzu.game.Hangman;
-import pl.zuzu.game.Status;
-import pl.zuzu.ui.gui.GuiGame;
+import pl.plauszta.TooManyMistakesException;
+import pl.plauszta.game.Game;
+import pl.plauszta.game.GameMode;
+import pl.plauszta.game.Status;
+import pl.plauszta.ui.gui.GuiGame;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static pl.zuzu.ui.gui.controllers.SceneChanger.changeScene;
+import static pl.plauszta.ui.gui.controllers.SceneChanger.changeScene;
 
 public class GameController implements Initializable {
     public static final String PLAYER_1 = "Player1";
@@ -59,7 +58,8 @@ public class GameController implements Initializable {
 
         if (fieldWithChar.getText().trim().equals("") || !fieldWithChar.getText().matches("[a-z]")) {
             updateScene();
-            makeAlert("enter the letter!").showAndWait();
+            String message = "enter the letter!";
+            makeAlert(message).showAndWait();
             return;
         }
 

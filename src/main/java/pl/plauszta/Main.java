@@ -1,8 +1,8 @@
-package pl.zuzu;
+package pl.plauszta;
 
 import javafx.application.Application;
-import pl.zuzu.game.WordDatabase;
-import pl.zuzu.ui.gui.GuiGame;
+import pl.plauszta.game.WordDatabase;
+import pl.plauszta.ui.gui.GuiGame;
 
 import java.util.*;
 

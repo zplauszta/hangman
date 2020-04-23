@@ -1,4 +1,4 @@
-package pl.zuzu.ui.gui;
+package pl.plauszta.ui.gui;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

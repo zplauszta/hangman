@@ -1,4 +1,4 @@
-package pl.zuzu;
+package pl.plauszta;
 
 public class TooManyMistakesException extends Throwable {
 

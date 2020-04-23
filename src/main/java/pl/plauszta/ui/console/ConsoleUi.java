@@ -1,10 +1,10 @@
-package pl.zuzu.ui.console;
+package pl.plauszta.ui.console;
 
-import pl.zuzu.*;
-import pl.zuzu.game.Game;
-import pl.zuzu.game.GameMode;
-import pl.zuzu.game.Hangman;
-import pl.zuzu.game.Status;
+import pl.plauszta.*;
+import pl.plauszta.game.Game;
+import pl.plauszta.game.GameMode;
+import pl.plauszta.game.Hangman;
+import pl.plauszta.game.Status;
 
 import java.util.List;
 import java.util.Random;

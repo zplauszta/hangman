@@ -1,4 +1,4 @@
-package pl.zuzu.ui.gui.controllers;
+package pl.plauszta.ui.gui.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import pl.zuzu.ui.gui.GuiGame;
+import pl.plauszta.ui.gui.GuiGame;
 
 import java.io.IOException;
 import java.net.URL;

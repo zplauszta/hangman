@@ -1,4 +1,4 @@
-package pl.zuzu.game;
+package pl.plauszta.game;
 
 public enum Status {
     ZERO_MISTAKE,

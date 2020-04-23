@@ -1,6 +1,6 @@
-package pl.zuzu.game;
+package pl.plauszta.game;
 
-import pl.zuzu.TooManyMistakesException;
+import pl.plauszta.TooManyMistakesException;
 
 import java.util.ArrayList;
 import java.util.List;
