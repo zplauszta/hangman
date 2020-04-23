@@ -44,7 +44,7 @@ public class Game {
         this.hangman = hangman;
     }
 
-    public void resetGame() {
+    public static void resetGame() {
         INSTANCE = null;
     }
 

@@ -13,6 +13,7 @@ import pl.zuzu.ui.gui.GuiGame;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static pl.zuzu.ui.gui.controllers.SceneChanger.changeScene;
@@ -29,6 +30,10 @@ public class GameController implements Initializable {
 
     @FXML
     private TextArea usedLetters;
+
+    private int scorePlayer1 = 0;
+    private int scorePlayer2 = 0;
+    private boolean playerGuessing = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,23 +65,36 @@ public class GameController implements Initializable {
         updateScene();
 
         if (game.getHangman().isEnd()) {
-            displayAlert();
+            String message;
+            if (game.getHangman().getStatus().equals(Status.GUESSED)) {
+                message = "Congrats! You guess the word "
+                        + game.getHangman().getWord() + " :)";
+            } else {
+                message = "Buu! You lose. The word was "
+                        + game.getHangman().getWord();
+            }
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("End of game");
+            alert.setHeaderText(null);
+            alert.setContentText(message + "\nDo you want guess a word again?");
+
+            ButtonType buttonPlayAgain = new ButtonType("Play!");
+            ButtonType buttonBackToHome = new ButtonType("Back to home");
+
+            alert.getButtonTypes().setAll(buttonPlayAgain, buttonBackToHome);
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == buttonPlayAgain) {
+                //Game.resetGame();
+
+            } else {
+                // ... user chose "Two"
+            }
+
             changeScene(event, "home.fxml");
             game.resetGame();
         }
-    }
-
-    private void displayAlert() {
-        String message;
-        final Game game = Game.getInstance();
-        if (game.getHangman().getStatus().equals(Status.GUESSED)) {
-            message = "Congrats! You guess the word "
-                    + game.getHangman().getWord() + " :)";
-        } else {
-            message = "Buu! You lose. The word was "
-                    + game.getHangman().getWord();
-        }
-        makeAlert(message).showAndWait();
     }
 
     private void updateScene() {
