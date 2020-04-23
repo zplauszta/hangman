@@ -18,7 +18,7 @@ public class Game {
     }
 
     public static Game getInstance() {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new Game();
         }
         return INSTANCE;
@@ -48,10 +48,10 @@ public class Game {
         INSTANCE = null;
     }
 
-    public void setRandomWordForHangman(){
+    public void setRandomWordForHangman() {
         Random random = new Random();
         final List<String> words = Game.getInstance().getWordDatabase().getWords();
-        String word = words.get(random.nextInt(words.size()));
+        String word = words.get(random.nextInt(words.size())).toLowerCase();
         hangman = new Hangman(word);
     }
 }

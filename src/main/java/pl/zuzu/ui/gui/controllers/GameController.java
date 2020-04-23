@@ -8,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import pl.zuzu.TooManyMistakesException;
 import pl.zuzu.game.Game;
+import pl.zuzu.game.GameMode;
+import pl.zuzu.game.Hangman;
 import pl.zuzu.game.Status;
 import pl.zuzu.ui.gui.GuiGame;
 
@@ -33,7 +35,7 @@ public class GameController implements Initializable {
 
     private int scorePlayer1 = 0;
     private int scorePlayer2 = 0;
-    private boolean playerGuessing = true;
+    private boolean player2Guessing = true;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -51,27 +53,39 @@ public class GameController implements Initializable {
     }
 
     public void enterLetter(ActionEvent event) throws TooManyMistakesException, IOException {
+        final Game game = Game.getInstance();
+
         if (fieldWithChar.getText().trim().equals("")) {
+            updateScene();
             makeAlert("enter the letter!").showAndWait();
             return;
         }
+
         char letter = fieldWithChar.getText().toLowerCase().charAt(0);
-        final Game game = Game.getInstance();
-        int stateOfGuess = game.getHangman().checkLetter(letter);
-        guessedLetters.setText(game.getHangman().getGuessedLetters());
-        if (stateOfGuess == -1) {
-            changeImage(game.getHangman().getStatus());
-        }
+        game.getHangman().checkLetter(letter);
+
         updateScene();
 
         if (game.getHangman().isEnd()) {
             String message;
             if (game.getHangman().getStatus().equals(Status.GUESSED)) {
+                if (player2Guessing) {
+                    scorePlayer2++;
+                } else {
+                    scorePlayer1++;
+                }
+
                 message = "Congrats! You guess the word "
                         + game.getHangman().getWord() + " :)";
             } else {
                 message = "Buu! You lose. The word was "
                         + game.getHangman().getWord();
+            }
+
+            if (GameMode.ONE_PLAYER.equals(game.getMode())) {
+                message += "\nPlayer score: " + scorePlayer2;
+            } else {
+                message += "\nPlayer1 score: " + scorePlayer1 + "\nPlayer 2 score: " + scorePlayer2;
             }
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -86,27 +100,52 @@ public class GameController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
 
             if (result.get() == buttonPlayAgain) {
-                //Game.resetGame();
+                if (game.getMode().equals(GameMode.ONE_PLAYER)) {
+                    game.setRandomWordForHangman();
+                    System.out.println(game.getHangman().getWord());
+                    updateScene();
+                } else {
+                    player2Guessing = !player2Guessing;
+                    TextInputDialog dialog = new TextInputDialog("");
+                    dialog.setTitle("New Game");
+                    dialog.setHeaderText(player2Guessing ? "Player1" : "Player2");
+                    dialog.setContentText("Please enter your word or leave empty if you want random word:");
 
+                    Optional<String> word = dialog.showAndWait();
+
+                    if ("".equals(word.orElse("").trim())) {
+                        game.setRandomWordForHangman();
+                    } else {
+                        game.setHangman(new Hangman(word.get()));
+                        updateScene();
+                    }
+                }
             } else {
-                // ... user chose "Two"
+                scorePlayer2 = 0;
+                scorePlayer1 = 0;
+                player2Guessing = true;
+                changeScene(event, "home.fxml");
+                Game.resetGame();
             }
-
-            changeScene(event, "home.fxml");
-            game.resetGame();
         }
     }
 
     private void updateScene() {
         fieldWithChar.setText("");
         StringBuilder letters = new StringBuilder();
-        for (Character usedCharacter : Game.getInstance().getHangman().getUsedCharacters()) {
+        final Game game = Game.getInstance();
+        for (Character usedCharacter : game.getHangman().getUsedCharacters()) {
             letters.append(usedCharacter).append("  ");
         }
         usedLetters.setText(letters.toString());
+        changeImage(game.getHangman().getStatus());
+        guessedLetters.setText(game.getHangman().getGuessedLetters());
     }
 
     private void changeImage(Status status) {
+        if (Status.GUESSED.equals(status)) {
+            return;
+        }
         String name = status.ordinal() + ".jpg";
         final URL resource = GuiGame.class.getClassLoader().getResource(name);
         imageOfHangman.setImage(new Image(resource.toString()));

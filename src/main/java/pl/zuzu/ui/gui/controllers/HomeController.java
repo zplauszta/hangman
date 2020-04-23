@@ -21,6 +21,8 @@ public class HomeController {
         game.setMode(GameMode.ONE_PLAYER);
         game.setRandomWordForHangman();
 
+        System.out.println(game.getHangman().getWord());
+
         changeScene(event, "game.fxml");
     }
 
