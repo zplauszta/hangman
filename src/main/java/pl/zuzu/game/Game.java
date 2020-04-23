@@ -53,7 +53,11 @@ public class Game {
     }
 
     public void changeWordForHangman(String word) {
-        hangman = new Hangman(word.toLowerCase());
+        if ("".equals(word)) {
+            changeWordForHangman();
+        } else {
+            hangman = new Hangman(word.toLowerCase());
+        }
     }
 
     private void setRandomWordForHangman() {

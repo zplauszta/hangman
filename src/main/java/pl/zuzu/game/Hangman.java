@@ -12,6 +12,9 @@ public class Hangman {
     private Status status;
     final Set<Character> charsOfWord;
     final private List<Character> usedCharacters;
+    final private String pattern = "[a-z]";
+    //Matcher matcher = compiledPattern.matcher("Nazywam sie Marcin Pietraszek");
+    //System.out.println(matcher.matches());
 
     public Hangman(String word) {
         this.word = word;
@@ -19,7 +22,12 @@ public class Hangman {
         charsOfWord = word.chars()
                 .mapToObj(e -> (char) e)
                 .collect(Collectors.toSet());
-        usedCharacters = new ArrayList<Character>();
+        usedCharacters = new ArrayList<>();
+        for (Character character : charsOfWord) {
+            if(!character.toString().matches(pattern)){
+                usedCharacters.add(character);
+            }
+        }
     }
 
     public String getWord() {
@@ -63,7 +71,7 @@ public class Hangman {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (char c : word.toCharArray()) {
-            stringBuilder.append(usedCharacters.contains(c) ? c : "_");
+            stringBuilder.append((usedCharacters.contains(c) || !(c+"").matches(pattern)) ? c : "_");
         }
         return stringBuilder.toString();
     }

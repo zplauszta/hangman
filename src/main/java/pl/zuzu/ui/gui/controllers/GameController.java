@@ -57,7 +57,7 @@ public class GameController implements Initializable {
     public void enterLetter(ActionEvent event) throws TooManyMistakesException, IOException {
         final Game game = Game.getInstance();
 
-        if (fieldWithChar.getText().trim().equals("")) {
+        if (fieldWithChar.getText().trim().equals("") || !fieldWithChar.getText().matches("[a-z]")) {
             updateScene();
             makeAlert("enter the letter!").showAndWait();
             return;
@@ -150,7 +150,9 @@ public class GameController implements Initializable {
         StringBuilder letters = new StringBuilder();
         final Game game = Game.getInstance();
         for (Character usedCharacter : game.getHangman().getUsedCharacters()) {
-            letters.append(usedCharacter).append("  ");
+            if (usedCharacter.toString().matches("[a-z]")) {
+                letters.append(usedCharacter).append("  ");
+            }
         }
         usedLetters.setText(letters.toString());
         changeImage(game.getHangman().getStatus());

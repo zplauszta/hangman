@@ -2,6 +2,8 @@ package pl.zuzu.ui.gui.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextInputDialog;
 import pl.zuzu.game.Game;
 import pl.zuzu.game.GameMode;
@@ -29,8 +31,12 @@ public class HomeController {
         game = Game.getInstance();
         game.setMode(GameMode.TWO_PLAYERS);
         String word = showDialogForPassingWord();
-        game.changeWordForHangman(word);
 
+        if ("".equals(word)) {
+            return;
+        }
+
+        game.changeWordForHangman(word);
         changeScene(event, "game.fxml");
     }
 
@@ -38,7 +44,7 @@ public class HomeController {
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("New Game");
         dialog.setHeaderText("Player 1");
-        dialog.setContentText("Please enter your word or leave empty if you want random word:");
+        dialog.setContentText("Please enter your word:");
 
         Optional<String> result = dialog.showAndWait();
 
