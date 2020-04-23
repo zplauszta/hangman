@@ -1,4 +1,4 @@
-package pl.zuzu;
+package pl.zuzu.game;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,8 +9,23 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class WordDatabase {
-    String path = "https://raw.githubusercontent.com/dwyl/english-words/master/words.txt";
-    List<String> words;
+    public static WordDatabase INSTANCE = new WordDatabase();
+
+    final private String path = "https://raw.githubusercontent.com/dwyl/english-words/master/words.txt";
+    private List<String> words;
+
+    private WordDatabase() {
+        if (INSTANCE != null) {
+            throw new IllegalStateException("Game already constructed");
+        }
+    }
+
+    public static WordDatabase getInstance() {
+        if(INSTANCE == null) {
+            INSTANCE = new WordDatabase();
+        }
+        return INSTANCE;
+    }
 
     public void init() {
         StringBuilder content = new StringBuilder();

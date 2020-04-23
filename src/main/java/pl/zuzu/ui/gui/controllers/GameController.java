@@ -2,14 +2,10 @@ package pl.zuzu.ui.gui.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import pl.zuzu.TooManyMistakesException;
 import pl.zuzu.game.Game;
 import pl.zuzu.game.Status;
@@ -50,12 +46,8 @@ public class GameController implements Initializable {
     }
 
     public void enterLetter(ActionEvent event) throws TooManyMistakesException, IOException {
-        if (fieldWithChar.getText().equals("")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Important Message");
-            alert.setHeaderText(null);
-            alert.setContentText("enter the letter!");
-            alert.showAndWait();
+        if (fieldWithChar.getText().trim().equals("")) {
+            makeAlert("enter the letter!").showAndWait();
             return;
         }
         char letter = fieldWithChar.getText().toLowerCase().charAt(0);

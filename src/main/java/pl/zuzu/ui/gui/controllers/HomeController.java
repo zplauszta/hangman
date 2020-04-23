@@ -2,17 +2,13 @@ package pl.zuzu.ui.gui.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
+import javafx.scene.control.TextInputDialog;
 import pl.zuzu.game.Game;
 import pl.zuzu.game.GameMode;
-import pl.zuzu.ui.gui.GuiGame;
+import pl.zuzu.game.Hangman;
 
 import java.io.IOException;
-import java.net.URL;
+import java.util.Optional;
 
 import static pl.zuzu.ui.gui.controllers.SceneChanger.changeScene;
 
@@ -23,7 +19,6 @@ public class HomeController {
     public void startOnePlayerGame(ActionEvent event) throws IOException {
         game = Game.getInstance();
         game.setMode(GameMode.ONE_PLAYER);
-        game.getWordDatabase().init();
         game.setRandomWordForHangman();
 
         changeScene(event, "game.fxml");
@@ -34,6 +29,28 @@ public class HomeController {
         game = Game.getInstance();
         game.setMode(GameMode.TWO_PLAYERS);
 
+        String word = showDialogForPassingWord();
+
+        if ("".equals(word.trim())) {
+            game.setRandomWordForHangman();
+        } else {
+            game.setHangman(new Hangman(word));
+        }
+
         changeScene(event, "game.fxml");
+    }
+
+    private String showDialogForPassingWord() {
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("New Game");
+        dialog.setHeaderText("Player 1");
+        dialog.setContentText("Please enter your word or leave empty if you want random word:");
+
+        Optional<String> result = dialog.showAndWait();
+
+        // The Java 8 way to get the response value (with lambda expression).
+        //result.ifPresent(name -> System.out.println("Your name: " + name));
+
+        return result.orElse("");
     }
 }

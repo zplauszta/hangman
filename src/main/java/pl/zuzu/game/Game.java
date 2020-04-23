@@ -1,7 +1,5 @@
 package pl.zuzu.game;
 
-import pl.zuzu.WordDatabase;
-
 import java.util.List;
 import java.util.Random;
 
@@ -11,7 +9,7 @@ public class Game {
 
     private GameMode mode;
     private Hangman hangman;
-    final private WordDatabase wordDatabase = new WordDatabase();
+    final private WordDatabase wordDatabase = WordDatabase.getInstance();
 
     private Game() {
         if (INSTANCE != null) {
