@@ -21,6 +21,8 @@ import java.util.ResourceBundle;
 import static pl.zuzu.ui.gui.controllers.SceneChanger.changeScene;
 
 public class GameController implements Initializable {
+    public static final String PLAYER_1 = "Player1";
+    public static final String PLAYER_2 = "Player2";
     @FXML
     private TextField fieldWithChar;
 
@@ -67,66 +69,79 @@ public class GameController implements Initializable {
         updateScene();
 
         if (game.getHangman().isEnd()) {
-            String message;
-            if (game.getHangman().getStatus().equals(Status.GUESSED)) {
-                if (player2Guessing) {
-                    scorePlayer2++;
-                } else {
-                    scorePlayer1++;
-                }
+            endGameOccurrence(event, game);
+        }
+    }
 
-                message = "Congrats! You guess the word "
-                        + game.getHangman().getWord() + " :)";
+    private void endGameOccurrence(ActionEvent event, Game game) throws IOException {
+        StringBuilder message = new StringBuilder();
+        if (game.getHangman().getStatus().equals(Status.GUESSED)) {
+            updateScores();
+
+            message.append("Congrats! You guess the word ")
+                    .append(game.getHangman().getWord())
+                    .append(" :)");
+        } else {
+            message.append("Buu! You lose. The word was ").append(game.getHangman().getWord());
+        }
+
+        if (GameMode.ONE_PLAYER.equals(game.getMode())) {
+            message.append("\nPlayer score: ").append(scorePlayer2);
+        } else {
+            message.append("\n").append(PLAYER_1).append(" score: ").append(scorePlayer1)
+                    .append("\n").append(PLAYER_2).append(" score: ").append(scorePlayer2);
+        }
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("End of game");
+        alert.setHeaderText(null);
+        alert.setContentText(message + "\nDo you want guess a word again?");
+
+        ButtonType buttonPlayAgain = new ButtonType("Play!");
+        ButtonType buttonBackToHome = new ButtonType("Back to home");
+
+        alert.getButtonTypes().setAll(buttonPlayAgain, buttonBackToHome);
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.get() == buttonPlayAgain) {
+            prepareNewGame(game);
+        } else {
+            scorePlayer2 = 0;
+            scorePlayer1 = 0;
+            player2Guessing = true;
+            changeScene(event, "home.fxml");
+            Game.resetGame();
+        }
+    }
+
+    private void prepareNewGame(Game game) {
+        if (game.getMode().equals(GameMode.ONE_PLAYER)) {   //mode 1-player
+            game.changeWordForHangman();
+            System.out.println(game.getHangman().getWord());
+            updateScene();
+        } else {                                            //mode 2-player
+            player2Guessing = !player2Guessing;
+            TextInputDialog dialog = new TextInputDialog("");
+            dialog.setTitle("New Game");
+            dialog.setHeaderText(player2Guessing ? PLAYER_1 : PLAYER_2);
+            dialog.setContentText("Please enter your word or leave empty if you want random word:");
+
+            Optional<String> word = dialog.showAndWait();
+
+            if ("".equals(word.orElse("").trim())) {
+                game.changeWordForHangman();
             } else {
-                message = "Buu! You lose. The word was "
-                        + game.getHangman().getWord();
+                game.changeWordForHangman(word.get());
+                updateScene();
             }
+        }
+    }
 
-            if (GameMode.ONE_PLAYER.equals(game.getMode())) {
-                message += "\nPlayer score: " + scorePlayer2;
-            } else {
-                message += "\nPlayer1 score: " + scorePlayer1 + "\nPlayer 2 score: " + scorePlayer2;
-            }
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("End of game");
-            alert.setHeaderText(null);
-            alert.setContentText(message + "\nDo you want guess a word again?");
-
-            ButtonType buttonPlayAgain = new ButtonType("Play!");
-            ButtonType buttonBackToHome = new ButtonType("Back to home");
-
-            alert.getButtonTypes().setAll(buttonPlayAgain, buttonBackToHome);
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if (result.get() == buttonPlayAgain) {
-                if (game.getMode().equals(GameMode.ONE_PLAYER)) {
-                    game.setRandomWordForHangman();
-                    System.out.println(game.getHangman().getWord());
-                    updateScene();
-                } else {
-                    player2Guessing = !player2Guessing;
-                    TextInputDialog dialog = new TextInputDialog("");
-                    dialog.setTitle("New Game");
-                    dialog.setHeaderText(player2Guessing ? "Player1" : "Player2");
-                    dialog.setContentText("Please enter your word or leave empty if you want random word:");
-
-                    Optional<String> word = dialog.showAndWait();
-
-                    if ("".equals(word.orElse("").trim())) {
-                        game.setRandomWordForHangman();
-                    } else {
-                        game.setHangman(new Hangman(word.get()));
-                        updateScene();
-                    }
-                }
-            } else {
-                scorePlayer2 = 0;
-                scorePlayer1 = 0;
-                player2Guessing = true;
-                changeScene(event, "home.fxml");
-                Game.resetGame();
-            }
+    private void updateScores() {
+        if (player2Guessing) {
+            scorePlayer2++;
+        } else {
+            scorePlayer1++;
         }
     }
 

@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextInputDialog;
 import pl.zuzu.game.Game;
 import pl.zuzu.game.GameMode;
-import pl.zuzu.game.Hangman;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -19,9 +18,8 @@ public class HomeController {
     public void startOnePlayerGame(ActionEvent event) throws IOException {
         game = Game.getInstance();
         game.setMode(GameMode.ONE_PLAYER);
-        game.setRandomWordForHangman();
-
-        System.out.println(game.getHangman().getWord());
+        game.changeWordForHangman();
+        //System.out.println(game.getHangman().getWord());
 
         changeScene(event, "game.fxml");
     }
@@ -30,14 +28,8 @@ public class HomeController {
     public void startTwoPlayersGame(ActionEvent event) throws IOException {
         game = Game.getInstance();
         game.setMode(GameMode.TWO_PLAYERS);
-
         String word = showDialogForPassingWord();
-
-        if ("".equals(word.trim())) {
-            game.setRandomWordForHangman();
-        } else {
-            game.setHangman(new Hangman(word));
-        }
+        game.changeWordForHangman(word);
 
         changeScene(event, "game.fxml");
     }

@@ -48,7 +48,15 @@ public class Game {
         INSTANCE = null;
     }
 
-    public void setRandomWordForHangman() {
+    public void changeWordForHangman() {
+        setRandomWordForHangman();
+    }
+
+    public void changeWordForHangman(String word) {
+        hangman = new Hangman(word.toLowerCase());
+    }
+
+    private void setRandomWordForHangman() {
         Random random = new Random();
         final List<String> words = Game.getInstance().getWordDatabase().getWords();
         String word = words.get(random.nextInt(words.size())).toLowerCase();
