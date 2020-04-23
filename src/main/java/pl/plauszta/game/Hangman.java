@@ -8,13 +8,11 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Hangman {
-    final private String word;
+    private final String word;
     private Status status;
     final Set<Character> charsOfWord;
-    final private List<Character> usedCharacters;
-    final private String pattern = "[a-z]";
-    //Matcher matcher = compiledPattern.matcher("Nazywam sie Marcin Pietraszek");
-    //System.out.println(matcher.matches());
+    private final List<Character> usedCharacters;
+    private static final String PATTERN = "[a-z]";
 
     public Hangman(String word) {
         this.word = word;
@@ -24,7 +22,7 @@ public class Hangman {
                 .collect(Collectors.toSet());
         usedCharacters = new ArrayList<>();
         for (Character character : charsOfWord) {
-            if(!character.toString().matches(pattern)){
+            if(!character.toString().matches(PATTERN)){
                 usedCharacters.add(character);
             }
         }
@@ -49,29 +47,29 @@ public class Hangman {
         status = Status.values()[status.ordinal() + 1];
     }
 
-    public int checkLetter(char c) throws TooManyMistakesException { //FIXME return enum
+    public StageStatus checkLetter(char c) throws TooManyMistakesException {
         if (usedCharacters.contains(c)) {
-            return 0;
+            return StageStatus.ALREADY_ENTERED;
         }
 
         usedCharacters.add(c);
 
         if (!charsOfWord.contains(c)) {
             addMistake();
-            return -1;
+            return StageStatus.MISSED;
         }
 
         if (isWon()) {
             status = Status.GUESSED;
         }
-        return 1;
+        return StageStatus.GUESSED;
     }
 
     public String getGuessedLetters() {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (char c : word.toCharArray()) {
-            stringBuilder.append((usedCharacters.contains(c) || !(c+"").matches(pattern)) ? c : "_");
+            stringBuilder.append((usedCharacters.contains(c) || !(c+"").matches(PATTERN)) ? c : "_");
         }
         return stringBuilder.toString();
     }

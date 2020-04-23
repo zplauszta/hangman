@@ -8,11 +8,12 @@ import java.util.*;
 
 public class Main {
 
-    public static Scanner sc = new Scanner(System.in);
+    private static final Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         //download a database
         WordDatabase.getInstance().init();
+        //ConsoleUi consoleUi = new ConsoleUi();
         //ConsoleUi.gameLoop();
 
         Application.launch(GuiGame.class);

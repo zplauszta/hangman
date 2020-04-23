@@ -46,9 +46,6 @@ public class HomeController {
 
         Optional<String> result = dialog.showAndWait();
 
-        // The Java 8 way to get the response value (with lambda expression).
-        //result.ifPresent(name -> System.out.println("Your name: " + name));
-
         return result.orElse("");
     }
 }

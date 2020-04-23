@@ -1,33 +1,28 @@
 package pl.plauszta.ui.console;
 
 import pl.plauszta.*;
-import pl.plauszta.game.Game;
-import pl.plauszta.game.GameMode;
-import pl.plauszta.game.Hangman;
-import pl.plauszta.game.Status;
+import pl.plauszta.game.*;
 
-import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class ConsoleUi {
 
     static Scanner sc = new Scanner(System.in);
 
-    public static void gameLoop() throws TooManyMistakesException {
-
-        Random random = new Random();
+    public void gameLoop() throws TooManyMistakesException {
         final Game game = Game.getInstance();
         game.getWordDatabase().init();
         game.setMode(getGameMode());
 
         do {
-            final List<String> words = game.getWordDatabase().getWords();
-            String word = game.getMode().equals(GameMode.TWO_PLAYERS) ? getWordToGuess() : words.get(random.nextInt(words.size()));
-            Hangman hangman = new Hangman(word);
-            game.setHangman(hangman);
+            if (GameMode.TWO_PLAYERS.equals(game.getMode())) {
+                game.changeWordForHangman(getWordToGuess());
+            } else {
+                game.changeWordForHangman();
+            }
             clearScreen();
 
+            final Hangman hangman = game.getHangman();
             while (hangman.isEnd()) {
                 printStage(hangman);
             }
@@ -72,10 +67,10 @@ public class ConsoleUi {
     }
 
     private static void typeStatement(Hangman hangman, char letter) throws TooManyMistakesException {
-        int stateOfGuess = hangman.checkLetter(letter);
-        if (stateOfGuess == 0) {
+        StageStatus stateOfGuess = hangman.checkLetter(letter);
+        if (StageStatus.ALREADY_ENTERED.equals(stateOfGuess)) {
             System.out.println("Already used!");
-        } else if (stateOfGuess == -1) {
+        } else if (stateOfGuess.equals(StageStatus.MISSED)) {
             System.out.println("Missed.");
         }
     }

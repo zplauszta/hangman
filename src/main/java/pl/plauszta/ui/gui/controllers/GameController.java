@@ -14,6 +14,7 @@ import pl.plauszta.ui.gui.GuiGame;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -103,7 +104,7 @@ public class GameController implements Initializable {
         alert.getButtonTypes().setAll(buttonPlayAgain, buttonBackToHome);
         Optional<ButtonType> result = alert.showAndWait();
 
-        if (result.get() == buttonPlayAgain) {
+        if (result.isPresent() && result.get() == buttonPlayAgain) {
             prepareNewGame(game);
         } else {
             scorePlayer2 = 0;
@@ -164,7 +165,7 @@ public class GameController implements Initializable {
             return;
         }
         String name = status.ordinal() + ".jpg";
-        final URL resource = GuiGame.class.getClassLoader().getResource(name);
+        final URL resource = Objects.requireNonNull(GuiGame.class.getClassLoader().getResource(name), name + " resource not found!");
         imageOfHangman.setImage(new Image(resource.toString()));
     }
 

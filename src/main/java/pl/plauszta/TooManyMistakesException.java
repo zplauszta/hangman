@@ -1,6 +1,6 @@
 package pl.plauszta;
 
-public class TooManyMistakesException extends Throwable {
+public class TooManyMistakesException extends Exception {
 
     public TooManyMistakesException() {
     }

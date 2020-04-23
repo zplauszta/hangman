@@ -5,11 +5,11 @@ import java.util.Random;
 
 public class Game {
 
-    public static Game INSTANCE = new Game();
+    private static Game INSTANCE = new Game();
 
     private GameMode mode;
     private Hangman hangman;
-    final private WordDatabase wordDatabase = WordDatabase.getInstance();
+    private final WordDatabase wordDatabase = WordDatabase.getInstance();
 
     private Game() {
         if (INSTANCE != null) {
