@@ -13,8 +13,8 @@ import java.util.stream.Collectors;
 public class WordDatabase {
     private static WordDatabase INSTANCE = new WordDatabase();
 
-    private static final String pathEnglishWords = "https://raw.githubusercontent.com/dwyl/english-words/master/words.txt";
-    private static final String pathPolishWords = "slowa.txt";
+    private static final String PATH_ENGLISH_WORDS = "https://raw.githubusercontent.com/dwyl/english-words/master/words.txt";
+    private static final String PATH_POLISH_WORDS = "slowa.txt";
 
     private List<String> words;
     private boolean englishVersion = true;
@@ -34,51 +34,62 @@ public class WordDatabase {
 
     public void init() {
         if (englishVersion) {
-            downloadWordsFromUrl(pathEnglishWords);
+            downloadWordsFromUrl(PATH_ENGLISH_WORDS);
         } else {
-            downloadWordsFromFile(pathPolishWords);
+            downloadWordsFromFile(PATH_POLISH_WORDS);
         }
 
     }
 
     private void downloadWordsFromFile(String pathPolishWords) {
         final URL resource = WordDatabase.class.getClassLoader().getResource(pathPolishWords);
-        words = new ArrayList<>();
         try {
             final Path path = Paths.get(resource.toURI());
-            try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    words.add(line);
-                }
-            } catch (FileNotFoundException ex) {
-                ex.printStackTrace();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
+            words = readWordsFromFile(path);
         } catch (URISyntaxException ex) {
             ex.printStackTrace();
         }
     }
 
-    private void downloadWordsFromUrl(String pathEnglishWords) {
-        StringBuilder content = new StringBuilder();
-        try {
-            URL url = new URL(pathEnglishWords);
-            URLConnection urlConnection = url.openConnection();
-
-            try (BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(urlConnection.getInputStream()))) {
-
-                String line;
-                while ((line = bufferedReader.readLine()) != null) {
-                    content.append(line).append("\n");
-                }
+    private List<String> readWordsFromFile(Path path) {
+        List<String> list = new ArrayList<>();
+        try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                list.add(line);
             }
+        } catch (FileNotFoundException ex) {
+            ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
-        words = Arrays.stream(content.toString().split("\n")).collect(Collectors.toList());
+        return list;
+    }
+
+    private void downloadWordsFromUrl(String pathEnglishWords) {
+        String content;
+        try {
+            URL url = new URL(pathEnglishWords);
+            URLConnection urlConnection = url.openConnection();
+            content = readWordsFromUrl(urlConnection);
+            words = Arrays.stream(content.split("\n")).collect(Collectors.toList());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private String readWordsFromUrl(URLConnection urlConnection) {
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(urlConnection.getInputStream()))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content.toString();
     }
 
     public List<String> getWords() {

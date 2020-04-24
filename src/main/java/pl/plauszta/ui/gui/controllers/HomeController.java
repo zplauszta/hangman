@@ -1,7 +1,5 @@
 package pl.plauszta.ui.gui.controllers;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,13 +33,8 @@ public class HomeController implements Initializable {
         choiceBoxLanguage.getSelectionModel()
                 .selectedIndexProperty()
                 .addListener((observableValue, value, newValue) -> {
-                    if (value.intValue() == newValue.intValue()) {
-                        return;
-                    } else if (newValue.intValue() == 1) {
-                        WordDatabase.getInstance().setEnglishVersion(false);
-                        WordDatabase.getInstance().init();
-                    } else {
-                        WordDatabase.getInstance().setEnglishVersion(true);
+                    if (value.intValue() != newValue.intValue()) {
+                        WordDatabase.getInstance().setEnglishVersion(newValue.intValue() == 0);
                         WordDatabase.getInstance().init();
                     }
                 });
