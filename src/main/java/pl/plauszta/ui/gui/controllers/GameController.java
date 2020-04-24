@@ -118,7 +118,6 @@ public class GameController implements Initializable {
     private void prepareNewGame(Game game) {
         if (game.getMode().equals(GameMode.ONE_PLAYER)) {   //mode 1-player
             game.changeWordForHangman();
-            System.out.println(game.getHangman().getWord());
             updateScene();
         } else {                                            //mode 2-player
             player2Guessing = !player2Guessing;
@@ -132,7 +131,7 @@ public class GameController implements Initializable {
             if ("".equals(word.orElse("").trim())) {
                 game.changeWordForHangman();
             } else {
-                game.changeWordForHangman(word.get());
+                game.changeWordForHangman(Objects.requireNonNull(word, "word not found!").get());
                 updateScene();
             }
         }

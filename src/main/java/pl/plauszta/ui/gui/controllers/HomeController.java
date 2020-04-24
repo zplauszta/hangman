@@ -19,7 +19,6 @@ public class HomeController {
         game = Game.getInstance();
         game.setMode(GameMode.ONE_PLAYER);
         game.changeWordForHangman();
-        //System.out.println(game.getHangman().getWord());
 
         changeScene(event, "game.fxml");
     }

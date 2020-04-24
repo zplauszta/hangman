@@ -12,7 +12,9 @@ public class Main {
 
     public static void main(String[] args) {
         //download a database
+        WordDatabase.getInstance().setEnglishVersion(false);
         WordDatabase.getInstance().init();
+
         //ConsoleUi consoleUi = new ConsoleUi();
         //ConsoleUi.gameLoop();
 

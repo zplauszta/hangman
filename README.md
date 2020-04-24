@@ -7,4 +7,4 @@ entered letters.
 
 After 6 misses letters, the game ends.
 
-![](src/main/resources/podglądGry.png)
+![](podglądGry.png)
