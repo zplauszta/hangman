@@ -18,7 +18,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField id="enteredLetter" fx:id="fieldWithChar" layoutX="107.0" layoutY="18.0" prefHeight="48.0" prefWidth="50.0">
+            <TextField id="enteredLetter" fx:id="fieldWithChar" layoutX="107.0" layoutY="18.0" onAction="#enterLetter" prefHeight="48.0" prefWidth="50.0">
                <font>
                   <Font size="22.0" />
                </font>

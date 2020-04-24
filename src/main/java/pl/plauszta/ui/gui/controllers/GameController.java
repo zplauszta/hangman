@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import pl.plauszta.TooManyMistakesException;
 import pl.plauszta.game.Game;
 import pl.plauszta.game.GameMode;
@@ -175,4 +176,5 @@ public class GameController implements Initializable {
         alert.setContentText(message);
         return alert;
     }
+
 }

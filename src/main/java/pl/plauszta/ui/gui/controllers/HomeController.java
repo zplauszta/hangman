@@ -35,9 +35,9 @@ public class HomeController implements Initializable {
                 .addListener((observableValue, value, newValue) -> {
                     if (value.intValue() != newValue.intValue()) {
                         WordDatabase.getInstance().setEnglishVersion(newValue.intValue() == 0);
-                        WordDatabase.getInstance().init();
                     }
                 });
+        WordDatabase.getInstance().init();
     }
 
     @FXML

@@ -58,8 +58,6 @@ public class WordDatabase {
             while ((line = bufferedReader.readLine()) != null) {
                 list.add(line);
             }
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
