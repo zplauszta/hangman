@@ -1,18 +1,51 @@
 package pl.plauszta.ui.gui.controllers;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Tooltip;
 import pl.plauszta.game.Game;
 import pl.plauszta.game.GameMode;
+import pl.plauszta.game.WordDatabase;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 import static pl.plauszta.ui.gui.controllers.SceneChanger.changeScene;
 
-public class HomeController {
+public class HomeController implements Initializable {
     Game game;
+
+    @FXML
+    ChoiceBox<String> choiceBoxLanguage;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        choiceBoxLanguage.getItems().add("English");
+        choiceBoxLanguage.getItems().add("Polish");
+        choiceBoxLanguage.setValue(WordDatabase.getInstance().isEnglishVersion() ? "English" : "Polish");
+        choiceBoxLanguage.setTooltip(new Tooltip("Select the language"));
+
+        choiceBoxLanguage.getSelectionModel()
+                .selectedIndexProperty()
+                .addListener((observableValue, value, newValue) -> {
+                    if (value.intValue() == newValue.intValue()) {
+                        return;
+                    } else if (newValue.intValue() == 1) {
+                        WordDatabase.getInstance().setEnglishVersion(false);
+                        WordDatabase.getInstance().init();
+                    } else {
+                        WordDatabase.getInstance().setEnglishVersion(true);
+                        WordDatabase.getInstance().init();
+                    }
+                });
+    }
 
     @FXML
     public void startOnePlayerGame(ActionEvent event) throws IOException {

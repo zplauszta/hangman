@@ -37,6 +37,7 @@
                   <Image url="@6.jpg" />
                </image>
             </ImageView>
+            <ChoiceBox fx:id="choiceBoxLanguage" layoutX="462.0" layoutY="361.0" prefHeight="25.0" prefWidth="120.0" />
          </children>
       </Pane>
    </children>

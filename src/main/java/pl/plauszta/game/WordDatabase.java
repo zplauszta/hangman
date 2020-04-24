@@ -16,7 +16,7 @@ public class WordDatabase {
     private static final String pathEnglishWords = "https://raw.githubusercontent.com/dwyl/english-words/master/words.txt";
     private static final String pathPolishWords = "slowa.txt";
 
-    private List<String> words = new ArrayList<>();
+    private List<String> words;
     private boolean englishVersion = true;
 
     private WordDatabase() {
@@ -43,6 +43,7 @@ public class WordDatabase {
 
     private void downloadWordsFromFile(String pathPolishWords) {
         final URL resource = WordDatabase.class.getClassLoader().getResource(pathPolishWords);
+        words = new ArrayList<>();
         try {
             final Path path = Paths.get(resource.toURI());
             try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
