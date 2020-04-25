@@ -12,7 +12,7 @@ public class Hangman {
     private Status status;
     final Set<Character> charsOfWord;
     private final List<Character> usedCharacters;
-    private static final String PATTERN = "[a-z]";
+    private static final String PATTERN = "\\p{L}";
 
     public Hangman(String word) {
         this.word = word;

@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import pl.plauszta.TooManyMistakesException;
 import pl.plauszta.game.Game;
 import pl.plauszta.game.GameMode;
@@ -24,6 +23,7 @@ import static pl.plauszta.ui.gui.controllers.SceneChanger.changeScene;
 public class GameController implements Initializable {
     public static final String PLAYER_1 = "Player1";
     public static final String PLAYER_2 = "Player2";
+    public static final String PATTERN = "\\p{L}";
     @FXML
     private TextField fieldWithChar;
 
@@ -58,7 +58,7 @@ public class GameController implements Initializable {
     public void enterLetter(ActionEvent event) throws TooManyMistakesException, IOException {
         final Game game = Game.getInstance();
 
-        if (fieldWithChar.getText().trim().equals("") || !fieldWithChar.getText().matches("[a-z]")) {
+        if (fieldWithChar.getText().trim().equals("") || !fieldWithChar.getText().matches(PATTERN)) {
             updateScene();
             String message = "enter the letter!";
             makeAlert(message).showAndWait();
@@ -151,7 +151,7 @@ public class GameController implements Initializable {
         StringBuilder letters = new StringBuilder();
         final Game game = Game.getInstance();
         for (Character usedCharacter : game.getHangman().getUsedCharacters()) {
-            if (usedCharacter.toString().matches("[a-z]")) {
+            if (usedCharacter.toString().matches(PATTERN)) {
                 letters.append(usedCharacter).append("  ");
             }
         }

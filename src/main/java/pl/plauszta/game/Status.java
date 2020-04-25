@@ -9,8 +9,4 @@ public enum Status {
     FIFTH_MISTAKE,
     SIXTH_MISTAKE,
     GUESSED;
-
-    public int numberOfMistakes() {
-        return ordinal() + 1;
-    }
 }

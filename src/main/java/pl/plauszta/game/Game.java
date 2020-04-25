@@ -5,47 +5,17 @@ import java.util.Random;
 
 public class Game {
 
-    private static Game INSTANCE = new Game();
+    private static Game instance = new Game();
 
     private GameMode mode;
     private Hangman hangman;
     private final WordDatabase wordDatabase = WordDatabase.getInstance();
 
     private Game() {
-        if (INSTANCE != null) {
-            throw new IllegalStateException("Game already constructed");
-        }
-    }
-
-    public static Game getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Game();
-        }
-        return INSTANCE;
-    }
-
-    public GameMode getMode() {
-        return mode;
-    }
-
-    public Hangman getHangman() {
-        return hangman;
-    }
-
-    public WordDatabase getWordDatabase() {
-        return wordDatabase;
-    }
-
-    public void setMode(GameMode mode) {
-        this.mode = mode;
-    }
-
-    public void setHangman(Hangman hangman) {
-        this.hangman = hangman;
     }
 
     public static void resetGame() {
-        INSTANCE = null;
+        instance = null;
     }
 
     public void changeWordForHangman() {
@@ -65,5 +35,32 @@ public class Game {
         final List<String> words = Game.getInstance().getWordDatabase().getWords();
         String word = words.get(random.nextInt(words.size())).toLowerCase();
         hangman = new Hangman(word);
+    }
+
+    public static Game getInstance() {
+        if (instance == null) {
+            instance = new Game();
+        }
+        return instance;
+    }
+
+    public GameMode getMode() {
+        return mode;
+    }
+
+    public void setMode(GameMode mode) {
+        this.mode = mode;
+    }
+
+    public Hangman getHangman() {
+        return hangman;
+    }
+
+    public void setHangman(Hangman hangman) {
+        this.hangman = hangman;
+    }
+
+    public WordDatabase getWordDatabase() {
+        return wordDatabase;
     }
 }
