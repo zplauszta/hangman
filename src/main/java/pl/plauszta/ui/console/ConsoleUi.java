@@ -58,7 +58,7 @@ public class ConsoleUi {
     }
 
     private static void printStage(Hangman hangman) throws TooManyMistakesException {
-        System.out.println(hangman.buildHangman());
+        System.out.println(buildHangman(hangman));
         System.out.println(hangman.getGuessedLetters());
         System.out.println("Type a letter: ");
         char letter = sc.nextLine().charAt(0);
@@ -79,8 +79,42 @@ public class ConsoleUi {
         if (hangman.getStatus().equals(Status.GUESSED)) {
             System.out.println("Congratulation! You have just guessed a word: " + hangman.getWord());
         } else {
-            System.out.println(hangman.buildHangman());
+            System.out.println(buildHangman(hangman));
             System.out.println("Buuu! You lose. The word was: " + hangman.getWord());
         }
+    }
+
+    private static String buildHangman(Hangman hangman) {
+        Status status = hangman.getStatus();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(" ------\n");
+        stringBuilder.append(" | /   |\n");
+        stringBuilder.append(" |/");
+
+        stringBuilder.append(status.ordinal() > 0 ? "    o\n" : "\n");
+
+        stringBuilder.append(" |");
+
+        stringBuilder.append(status.ordinal() > 1 ? "     |\n" : "\n");
+
+        stringBuilder.append(" |");
+
+        if (status.ordinal() > 2) {
+            stringBuilder.append("    /|");
+        }
+
+        stringBuilder.append(status.ordinal() > 3 ? "\\\n" : "\n");
+
+        stringBuilder.append(" |");
+
+        if (status.ordinal() > 4) {
+            stringBuilder.append("    /");
+        }
+
+        stringBuilder.append(status.ordinal() > 5 ? " \\\n" : "\n");
+
+        stringBuilder.append("---");
+
+        return stringBuilder.toString();
     }
 }
