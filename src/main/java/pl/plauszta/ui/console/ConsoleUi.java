@@ -9,7 +9,7 @@ public class ConsoleUi {
 
     static Scanner sc = new Scanner(System.in);
 
-    public void gameLoop() throws TooManyMistakesException {
+    public void gameLoop() {
         final Game game = Game.getInstance();
         game.getWordDatabase().init();
         game.setMode(getGameMode());
@@ -57,7 +57,7 @@ public class ConsoleUi {
         }
     }
 
-    private static void printStage(Hangman hangman) throws TooManyMistakesException {
+    private static void printStage(Hangman hangman) {
         System.out.println(buildHangman(hangman));
         System.out.println(hangman.getGuessedLetters());
         System.out.println("Type a letter: ");
@@ -66,11 +66,11 @@ public class ConsoleUi {
         typeStatement(hangman, letter);
     }
 
-    private static void typeStatement(Hangman hangman, char letter) throws TooManyMistakesException {
-        StageStatus stateOfGuess = hangman.checkLetter(letter);
-        if (StageStatus.ALREADY_ENTERED.equals(stateOfGuess)) {
+    private static void typeStatement(Hangman hangman, char letter) {
+        EnteredLetterStatus stateOfGuess = hangman.checkLetter(letter);
+        if (EnteredLetterStatus.ALREADY_ENTERED.equals(stateOfGuess)) {
             System.out.println("Already used!");
-        } else if (stateOfGuess.equals(StageStatus.MISSED)) {
+        } else if (stateOfGuess.equals(EnteredLetterStatus.MISSED)) {
             System.out.println("Missed.");
         }
     }

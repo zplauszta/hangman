@@ -8,68 +8,64 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Hangman {
+    private static final String LETTER_PATTERN = "\\p{L}";
     private final String word;
-    private Status status;
     private final List<Character> usedCharacters;
-    private static final String PATTERN = "\\p{L}";
+    private Status status;
 
     public Hangman(String word) {
         this.word = word;
         status = Status.ZERO_MISTAKE;
-        Set<Character> charsOfWord = word.chars()
-                .mapToObj(e -> (char) e)
-                .collect(Collectors.toSet());
+        Set<Character> charsOfWord = wordAsCharSet();
         usedCharacters = new ArrayList<>();
         for (Character character : charsOfWord) {
-            if (!character.toString().matches(PATTERN)) {
+            if (!character.toString().matches(LETTER_PATTERN)) {
                 usedCharacters.add(character);
             }
         }
     }
 
-    public void addMistake() throws TooManyMistakesException {
-        if (status.equals(Status.SIXTH_MISTAKE)) {
-            throw new TooManyMistakesException();
-        }
+    public void addMistake() {
         status = Status.values()[status.ordinal() + 1];
     }
 
-    public StageStatus checkLetter(char c) throws TooManyMistakesException {
+    public EnteredLetterStatus checkLetter(char c) {
         if (usedCharacters.contains(c)) {
-            return StageStatus.ALREADY_ENTERED;
+            return EnteredLetterStatus.ALREADY_ENTERED;
         }
-
         usedCharacters.add(c);
-
-        Set<Character> charsOfWord = word.chars()
-                .mapToObj(e -> (char) e)
-                .collect(Collectors.toSet());
+        Set<Character> charsOfWord = wordAsCharSet();
 
         if (!charsOfWord.contains(c)) {
             addMistake();
-            return StageStatus.MISSED;
+            return EnteredLetterStatus.MISSED;
         }
-
         if (isWon()) {
             status = Status.GUESSED;
         }
-        return StageStatus.GUESSED;
+        return EnteredLetterStatus.GUESSED;
     }
 
     public String getGuessedLetters() {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (char c : word.toCharArray()) {
-            stringBuilder.append((usedCharacters.contains(c) || !(c + "").matches(PATTERN)) ? c : "_");
+            final boolean isGuessedLetter = usedCharacters.contains(c);
+            final boolean isLetter = (c + "").matches(LETTER_PATTERN);
+            stringBuilder.append(isGuessedLetter || !isLetter ? c : "_");
         }
         return stringBuilder.toString();
     }
 
     private boolean isWon() {
-        Set<Character> charsOfWord = word.chars()
+        Set<Character> charsOfWord = wordAsCharSet();
+        return usedCharacters.containsAll(charsOfWord);
+    }
+
+    private Set<Character> wordAsCharSet() {
+        return word.chars()
                 .mapToObj(e -> (char) e)
                 .collect(Collectors.toSet());
-        return usedCharacters.containsAll(charsOfWord);
     }
 
     public boolean isEnd() {
