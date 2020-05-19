@@ -47,8 +47,7 @@ public class HomeController implements Initializable {
         game.setMode(GameMode.ONE_PLAYER);
         game.changeWordForHangman();
 
-        boolean englishVersion = WordDatabase.getInstance().isEnglishVersion();
-        changeScene(event, englishVersion ? "gameScene.fxml" : "gamePlScene.fxml");
+        changeScene(event, "gameScene.fxml");
     }
 
     @FXML
@@ -62,9 +61,7 @@ public class HomeController implements Initializable {
         }
 
         game.changeWordForHangman(word);
-
-        boolean englishVersion = WordDatabase.getInstance().isEnglishVersion();
-        changeScene(event, englishVersion ? "gameScene.fxml" : "gamePlScene.fxml");
+        changeScene(event, "gameScene.fxml");
     }
 
     private String showDialogForPassingWord() {

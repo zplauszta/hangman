@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import pl.plauszta.game.Game;
 import pl.plauszta.game.GameMode;
 import pl.plauszta.game.Status;
@@ -28,7 +29,9 @@ public class GameSceneController implements Initializable {
 
     @FXML
     public VBox buttons;
-    public VBox buttonsPl;
+
+    @FXML
+    public VBox buttonsPol;
 
     @FXML
     private ImageView imageOfHangman;
@@ -44,6 +47,13 @@ public class GameSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         guessedLetters.setText(Game.getInstance().getHangman().getGuessedLetters());
+        if (Game.getInstance().getWordDatabase().isEnglishVersion()) {
+            buttons.setVisible(true);
+            buttonsPol.setVisible(false);
+        } else {
+            buttons.setVisible(false);
+            buttonsPol.setVisible(true);
+        }
     }
 
     public void buttonClicked(ActionEvent event) throws IOException {
@@ -104,6 +114,11 @@ public class GameSceneController implements Initializable {
         if (game.getMode().equals(GameMode.ONE_PLAYER)) {   //mode 1-player
             game.changeWordForHangman();
             for (Node child : buttons.getChildren()) {
+                for (Node node : ((HBox) child).getChildren()) {
+                    node.setDisable(false);
+                }
+            }
+            for (Node child : buttonsPol.getChildren()) {
                 for (Node node : ((HBox) child).getChildren()) {
                     node.setDisable(false);
                 }

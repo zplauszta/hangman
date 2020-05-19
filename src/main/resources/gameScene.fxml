@@ -5,157 +5,344 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.plauszta.ui.gui.controllers.GameSceneController">
-    <ImageView id="imageOfHangman" fx:id="imageOfHangman" fitHeight="290.0" fitWidth="265.0" layoutX="26.0"
-               layoutY="73.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@0.jpg"/>
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.plauszta.ui.gui.controllers.GameSceneController">
+    <ImageView id="imageOfHangman" fx:id="imageOfHangman" fitHeight="290.0" fitWidth="265.0" layoutX="26.0" layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@0.jpg" />
     </ImageView>
-    <Label id="guessedLetters" fx:id="guessedLetters" layoutX="306.0" layoutY="73.0" text="______________________">
+    <Label id="guessedLetters" fx:id="guessedLetters" alignment="CENTER" layoutX="308.0" layoutY="73.0" prefHeight="43.0" prefWidth="284.0" text="______________________">
         <font>
-            <Font size="29.0"/>
+            <Font size="29.0" />
         </font>
     </Label>
-    <VBox layoutX="358.0" layoutY="207.0" prefHeight="152.0" prefWidth="213.0">
+    <VBox fx:id="buttons" layoutX="344.0" layoutY="200.0" prefHeight="152.0" prefWidth="213.0">
         <HBox prefHeight="27.0" prefWidth="125.0">
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="A">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="A">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="B">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="B">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="C">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="C">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="D">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="D">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="E">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="E">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="F">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="F">
                 <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-        </HBox>
-        <HBox prefHeight="31.0" prefWidth="179.0">
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="G">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="H">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="I">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="J">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="K">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="L">
-                <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
         </HBox>
         <HBox prefHeight="31.0" prefWidth="179.0">
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="M">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="G">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="N">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="H">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="O">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="I">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="P">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="J">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="Q">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="K">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="R">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="L">
                 <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-        </HBox>
-        <HBox prefHeight="31.0" prefWidth="179.0">
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="S">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="T">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="U">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="V">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="W">
-                <font>
-                    <Font size="15.0"/>
-                </font>
-            </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="X">
-                <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
         </HBox>
         <HBox prefHeight="31.0" prefWidth="179.0">
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="Y">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="M">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
                 </font>
             </Button>
-            <Button prefWidth="35.0" onAction="#buttonClicked" text="Z">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="N">
                 <font>
-                    <Font size="15.0"/>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="O">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="P">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Q">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="R">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox prefHeight="31.0" prefWidth="179.0">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="S">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="T">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="U">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="V">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="W">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="X">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox prefHeight="31.0" prefWidth="179.0">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Y">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Z">
+                <font>
+                    <Font size="15.0" />
                 </font>
             </Button>
         </HBox>
     </VBox>
+
+    <VBox fx:id="buttonsPol" layoutX="308.0" layoutY="200.0" prefHeight="155.0" prefWidth="285.0">
+        <HBox prefHeight="31.0" prefWidth="230.0">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="A">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Ą">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="B">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="C">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Ć">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="D">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="E">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Ę">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox prefHeight="31.0" prefWidth="179.0">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="F">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="G">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="H">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="I">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="J">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="K">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="L">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Ł">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="41.0" prefHeight="31.0" prefWidth="179.0">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="M">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="N">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Ń">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="O">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Ó">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="P">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Q">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="R">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="72.0" prefHeight="31.0" prefWidth="179.0">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="S">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Ś">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="T">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="U">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="V">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="W">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="X">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Y">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="103.0" prefHeight="31.0" prefWidth="179.0">
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Z">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Ź">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+            <Button onAction="#buttonClicked" prefWidth="35.0" text="Ż">
+                <font>
+                    <Font size="15.0" />
+                </font>
+            </Button>
+        </HBox>
+    </VBox>
+
 </AnchorPane>
