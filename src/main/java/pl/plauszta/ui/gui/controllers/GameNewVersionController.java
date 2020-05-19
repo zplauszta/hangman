@@ -3,9 +3,12 @@ package pl.plauszta.ui.gui.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import pl.plauszta.game.Game;
 import pl.plauszta.game.GameMode;
 import pl.plauszta.game.Status;
@@ -22,6 +25,7 @@ import static pl.plauszta.ui.gui.controllers.SceneChanger.changeScene;
 public class GameNewVersionController implements Initializable {
     public static final String PLAYER_1 = "Player1";
     public static final String PLAYER_2 = "Player2";
+    public VBox buttons;
 
     @FXML
     private ImageView imageOfHangman;
@@ -94,11 +98,14 @@ public class GameNewVersionController implements Initializable {
     }
 
     private void prepareNewGame(Game game, ActionEvent event) throws IOException {
-
         if (game.getMode().equals(GameMode.ONE_PLAYER)) {   //mode 1-player
             game.changeWordForHangman();
+            for (Node child : buttons.getChildren()) {
+                for (Node node : ((HBox) child).getChildren()) {
+                    node.setDisable(false);
+                }
+            }
             updateScene();
-            changeScene(event, "gameNewVersion.fxml");
         } else {                                            //mode 2-player
             player2Guessing = !player2Guessing;
             TextInputDialog dialog = new TextInputDialog("");
@@ -112,6 +119,13 @@ public class GameNewVersionController implements Initializable {
                 game.changeWordForHangman();
             } else {
                 game.changeWordForHangman(Objects.requireNonNull(word, "word not found!").get());
+
+                for (Node child : buttons.getChildren()) {
+                    for (Node node : ((HBox) child).getChildren()) {
+                        node.setDisable(false);
+                    }
+                }
+
                 updateScene();
             }
         }

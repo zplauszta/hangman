@@ -19,11 +19,11 @@
                 <Font size="29.0"/>
             </font>
         </Label>
-        <VBox layoutX="307.0" layoutY="207.0" prefHeight="155.0" prefWidth="285.0">
+        <VBox fx:id="buttons" layoutX="307.0" layoutY="207.0" prefHeight="155.0" prefWidth="285.0">
             <children>
                 <HBox prefHeight="31.0" prefWidth="230.0">
                     <children>
-                        <Button fx:id="aButton" onAction="#buttonClicked" prefWidth="35.0" text="_A">
+                        <Button fx:id="aButton" onAction="#buttonClicked" prefWidth="35.0" text="A">
                             <font>
                                 <Font size="15.0"/>
                             </font>

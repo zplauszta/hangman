@@ -23,7 +23,7 @@
             <children>
                 <HBox prefHeight="27.0" prefWidth="125.0">
                     <children>
-                        <Button fx:id="aButton" prefWidth="35.0" onAction="#buttonClicked" text="_A">
+                        <Button fx:id="aButton" prefWidth="35.0" onAction="#buttonClicked" text="A">
                             <font>
                                 <Font size="15.0"/>
                             </font>
