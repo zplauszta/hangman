@@ -47,7 +47,8 @@ public class HomeController implements Initializable {
         game.setMode(GameMode.ONE_PLAYER);
         game.changeWordForHangman();
 
-        changeScene(event, "gameNewVersion.fxml");
+        boolean englishVersion = WordDatabase.getInstance().isEnglishVersion();
+        changeScene(event, englishVersion ? "gameNewVersion.fxml" : "gameNewVersionPol.fxml");
     }
 
     @FXML

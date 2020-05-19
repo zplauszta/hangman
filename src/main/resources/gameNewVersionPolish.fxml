@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.plauszta.ui.gui.controllers.GameNewVersionController">
+    <children>
+        <ImageView id="imageOfHangman" fx:id="imageOfHangman" fitHeight="290.0" fitWidth="265.0" layoutX="26.0"
+                   layoutY="73.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@0.jpg"/>
+            </image>
+        </ImageView>
+        <Label id="guessedLetters" fx:id="guessedLetters" layoutX="306.0" layoutY="73.0" text="______________________">
+            <font>
+                <Font size="29.0"/>
+            </font>
+        </Label>
+        <VBox layoutX="307.0" layoutY="207.0" prefHeight="155.0" prefWidth="285.0">
+            <children>
+                <HBox prefHeight="31.0" prefWidth="230.0">
+                    <children>
+                        <Button fx:id="aButton" onAction="#buttonClicked" prefWidth="35.0" text="_A">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="aPolButton" layoutX="10.0" layoutY="10.0" onAction="#buttonClicked"
+                                prefWidth="35.0" text="Ą">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="bButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="B">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="cButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="C">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="cPolButton" layoutX="115.0" layoutY="10.0" mnemonicParsing="false"
+                                onAction="#buttonClicked" prefWidth="35.0" text="Ć">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="dButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="D">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="eButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="E">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="ePolButton" layoutX="220.0" layoutY="10.0" mnemonicParsing="false"
+                                onAction="#buttonClicked" prefWidth="35.0" text="Ę">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <HBox prefHeight="31.0" prefWidth="179.0">
+                    <children>
+                        <Button fx:id="fButtton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="F">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="gButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="G">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="hButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="H">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="iButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="I">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="jButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="J">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="kButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="K">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="lbutton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="L">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="lPolbutton" layoutX="220.0" layoutY="10.0" mnemonicParsing="false"
+                                onAction="#buttonClicked" prefWidth="35.0" text="Ł">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="41.0" prefHeight="31.0" prefWidth="179.0">
+                    <children>
+                        <Button fx:id="mButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="M">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="nButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="N">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="nPolButton" layoutX="45.0" layoutY="10.0" mnemonicParsing="false"
+                                onAction="#buttonClicked" prefWidth="35.0" text="Ń">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="oButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="O">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="oPolButton" layoutX="80.0" layoutY="10.0" mnemonicParsing="false"
+                                onAction="#buttonClicked" prefWidth="35.0" text="Ó">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="pButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="P">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="qButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="Q">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="rButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="R">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="72.0" prefHeight="31.0" prefWidth="179.0">
+                    <children>
+                        <Button fx:id="sButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="S">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="sPolButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                                onAction="#buttonClicked" prefWidth="35.0" text="Ś">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="tButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="T">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="uButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="U">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="vButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="V">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="wButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="W">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="xButton" mnemonicParsing="false" prefWidth="35.0" text="X">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="yButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="Y">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="103.0" prefHeight="31.0" prefWidth="179.0">
+                    <children>
+                        <Button fx:id="zButton" mnemonicParsing="false" onAction="#buttonClicked" prefWidth="35.0"
+                                text="Z">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="zPol1Button" layoutX="10.0" layoutY="10.0" mnemonicParsing="false"
+                                onAction="#buttonClicked" prefWidth="35.0" text="Ź">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="zPol2Button" layoutX="45.0" layoutY="10.0" mnemonicParsing="false"
+                                onAction="#buttonClicked" prefWidth="35.0" text="Ż">
+                            <font>
+                                <Font size="15.0"/>
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
