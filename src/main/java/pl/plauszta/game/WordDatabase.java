@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class WordDatabase {
-    private static WordDatabase INSTANCE = new WordDatabase();
+    private static WordDatabase instance = new WordDatabase();
 
     private static final String PATH_ENGLISH_WORDS = "https://raw.githubusercontent.com/dwyl/english-words/master/words.txt";
     private static final String PATH_POLISH_WORDS = "slowa.txt";
@@ -24,16 +24,16 @@ public class WordDatabase {
     private boolean englishVersion = true;
 
     private WordDatabase() {
-        if (INSTANCE != null) {
+        if (instance != null) {
             throw new IllegalStateException("Game already constructed");
         }
     }
 
     public static WordDatabase getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new WordDatabase();
+        if (instance == null) {
+            instance = new WordDatabase();
         }
-        return INSTANCE;
+        return instance;
     }
 
     public void init() {

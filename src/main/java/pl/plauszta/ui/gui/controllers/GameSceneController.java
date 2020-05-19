@@ -9,7 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextAlignment;
 import pl.plauszta.game.Game;
 import pl.plauszta.game.GameMode;
 import pl.plauszta.game.Status;
@@ -47,6 +46,10 @@ public class GameSceneController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         guessedLetters.setText(Game.getInstance().getHangman().getGuessedLetters());
+        setNeededButtons();
+    }
+
+    private void setNeededButtons() {
         if (Game.getInstance().getWordDatabase().isEnglishVersion()) {
             buttons.setVisible(true);
             buttonsPol.setVisible(false);
@@ -70,16 +73,38 @@ public class GameSceneController implements Initializable {
     }
 
     private void endGameOccurrence(ActionEvent event, Game game) throws IOException {
+        StringBuilder message = makeEndMessage(game);
+        Alert alert = endGameAlert(message);
+        ButtonType buttonPlayAgain = new ButtonType("Play!");
+        ButtonType buttonBackToHome = new ButtonType("Back to home");
+        alert.getButtonTypes().setAll(buttonPlayAgain, buttonBackToHome);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == buttonPlayAgain) {
+            prepareNewGame(game);
+        } else {
+            cleanAndBackHome(event);
+        }
+    }
+
+    private void cleanAndBackHome(ActionEvent event) throws IOException {
+        scorePlayer2 = 0;
+        scorePlayer1 = 0;
+        player2Guessing = true;
+        Game.resetGame();
+        changeScene(event, "homeScene.fxml");
+    }
+
+    private StringBuilder makeEndMessage(Game game) {
         StringBuilder message = new StringBuilder();
         if (game.getHangman().getStatus().equals(Status.GUESSED)) {
             updateScores();
-
-            message.append("Congrats! You guess the word ")
-                    .append(game.getHangman().getWord())
-                    .append(" :)");
+            message.append("Congrats! You guess the word ");
         } else {
-            message.append("Buu! You lose. The word was ").append(game.getHangman().getWord());
+            message.append("Buu! You lose. The word was ");
         }
+        message.append(game.getHangman().getWord());
 
         if (GameMode.ONE_PLAYER.equals(game.getMode())) {
             message.append("\nPlayer score: ").append(scorePlayer2);
@@ -87,43 +112,20 @@ public class GameSceneController implements Initializable {
             message.append("\n").append(PLAYER_1).append(" score: ").append(scorePlayer1)
                     .append("\n").append(PLAYER_2).append(" score: ").append(scorePlayer2);
         }
+        return message;
+    }
 
+    private Alert endGameAlert(StringBuilder message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("End of game");
         alert.setHeaderText(null);
         alert.setContentText(message + "\nDo you want guess a word again?");
-
-        ButtonType buttonPlayAgain = new ButtonType("Play!");
-        ButtonType buttonBackToHome = new ButtonType("Back to home");
-
-        alert.getButtonTypes().setAll(buttonPlayAgain, buttonBackToHome);
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == buttonPlayAgain) {
-            prepareNewGame(game);
-        } else {
-            scorePlayer2 = 0;
-            scorePlayer1 = 0;
-            player2Guessing = true;
-            changeScene(event, "homeScene.fxml");
-            Game.resetGame();
-        }
+        return alert;
     }
 
     private void prepareNewGame(Game game) {
         if (game.getMode().equals(GameMode.ONE_PLAYER)) {   //mode 1-player
             game.changeWordForHangman();
-            for (Node child : buttons.getChildren()) {
-                for (Node node : ((HBox) child).getChildren()) {
-                    node.setDisable(false);
-                }
-            }
-            for (Node child : buttonsPol.getChildren()) {
-                for (Node node : ((HBox) child).getChildren()) {
-                    node.setDisable(false);
-                }
-            }
-            updateScene();
         } else {                                            //mode 2-player
             player2Guessing = !player2Guessing;
             TextInputDialog dialog = new TextInputDialog("");
@@ -136,15 +138,25 @@ public class GameSceneController implements Initializable {
             if ("".equals(word.orElse("").trim())) {
                 game.changeWordForHangman();
             } else {
-                game.changeWordForHangman(Objects.requireNonNull(word, "word not found!").get());
+                game.changeWordForHangman(word.toString());
+            }
+        }
+        unlockButtons();
+        updateScene();
+    }
 
-                for (Node child : buttons.getChildren()) {
-                    for (Node node : ((HBox) child).getChildren()) {
-                        node.setDisable(false);
-                    }
+    private void unlockButtons() {
+        if (Game.getInstance().getWordDatabase().isEnglishVersion()) {
+            for (Node child : buttons.getChildren()) {
+                for (Node node : ((HBox) child).getChildren()) {
+                    node.setDisable(false);
                 }
-
-                updateScene();
+            }
+        } else {
+            for (Node child : buttonsPol.getChildren()) {
+                for (Node node : ((HBox) child).getChildren()) {
+                    node.setDisable(false);
+                }
             }
         }
     }
@@ -170,13 +182,5 @@ public class GameSceneController implements Initializable {
         String name = status.ordinal() + ".jpg";
         final URL resource = Objects.requireNonNull(GuiGame.class.getClassLoader().getResource(name), name + " resource not found!");
         imageOfHangman.setImage(new Image(resource.toString()));
-    }
-
-    private Alert makeAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Important Message");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        return alert;
     }
 }

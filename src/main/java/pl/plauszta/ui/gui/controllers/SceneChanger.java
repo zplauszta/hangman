@@ -13,6 +13,9 @@ import java.net.URL;
 
 public class SceneChanger {
 
+    private SceneChanger() {
+    }
+
     static void changeScene(ActionEvent event, String name) throws IOException {
         final Node node = (Node) event.getTarget();
         Stage stage = (Stage) node.getScene().getWindow();
