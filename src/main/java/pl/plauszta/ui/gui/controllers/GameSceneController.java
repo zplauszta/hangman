@@ -3,10 +3,12 @@ package pl.plauszta.ui.gui.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import pl.plauszta.TooManyMistakesException;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import pl.plauszta.game.Game;
 import pl.plauszta.game.GameMode;
 import pl.plauszta.game.Status;
@@ -20,12 +22,13 @@ import java.util.ResourceBundle;
 
 import static pl.plauszta.ui.gui.controllers.SceneChanger.changeScene;
 
-public class GameController implements Initializable {
+public class GameSceneController implements Initializable {
     public static final String PLAYER_1 = "Player1";
     public static final String PLAYER_2 = "Player2";
-    public static final String PATTERN = "\\p{L}";
+
     @FXML
-    private TextField fieldWithChar;
+    public VBox buttons;
+    public VBox buttonsPl;
 
     @FXML
     private ImageView imageOfHangman;
@@ -33,8 +36,6 @@ public class GameController implements Initializable {
     @FXML
     private Label guessedLetters;
 
-    @FXML
-    private TextArea usedLetters;
 
     private int scorePlayer1 = 0;
     private int scorePlayer2 = 0;
@@ -42,32 +43,15 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        fieldWithChar.setTextFormatter(new TextFormatter<String>(this::limitToOneSign));
         guessedLetters.setText(Game.getInstance().getHangman().getGuessedLetters());
     }
 
-    private TextFormatter.Change limitToOneSign(TextFormatter.Change change) {
-        String newText = change.getControlNewText();
-        if (newText.length() > 1) {
-            return null;
-        } else {
-            return change;
-        }
-    }
-
-    public void enterLetter(ActionEvent event) throws TooManyMistakesException, IOException {
+    public void buttonClicked(ActionEvent event) throws IOException {
         final Game game = Game.getInstance();
 
-        if (fieldWithChar.getText().trim().equals("") || !fieldWithChar.getText().matches(PATTERN)) {
-            updateScene();
-            String message = "enter the letter!";
-            makeAlert(message).showAndWait();
-            return;
-        }
-
-        char letter = fieldWithChar.getText().toLowerCase().charAt(0);
+        char letter = ((Button) event.getSource()).getText().toLowerCase().charAt(0);
         game.getHangman().checkLetter(letter);
-
+        ((Button) event.getSource()).setDisable(true);
         updateScene();
 
         if (game.getHangman().isEnd()) {
@@ -111,7 +95,7 @@ public class GameController implements Initializable {
             scorePlayer2 = 0;
             scorePlayer1 = 0;
             player2Guessing = true;
-            changeScene(event, "home.fxml");
+            changeScene(event, "homeScene.fxml");
             Game.resetGame();
         }
     }
@@ -119,6 +103,11 @@ public class GameController implements Initializable {
     private void prepareNewGame(Game game) {
         if (game.getMode().equals(GameMode.ONE_PLAYER)) {   //mode 1-player
             game.changeWordForHangman();
+            for (Node child : buttons.getChildren()) {
+                for (Node node : ((HBox) child).getChildren()) {
+                    node.setDisable(false);
+                }
+            }
             updateScene();
         } else {                                            //mode 2-player
             player2Guessing = !player2Guessing;
@@ -133,6 +122,13 @@ public class GameController implements Initializable {
                 game.changeWordForHangman();
             } else {
                 game.changeWordForHangman(Objects.requireNonNull(word, "word not found!").get());
+
+                for (Node child : buttons.getChildren()) {
+                    for (Node node : ((HBox) child).getChildren()) {
+                        node.setDisable(false);
+                    }
+                }
+
                 updateScene();
             }
         }
@@ -147,15 +143,7 @@ public class GameController implements Initializable {
     }
 
     private void updateScene() {
-        fieldWithChar.setText("");
-        StringBuilder letters = new StringBuilder();
         final Game game = Game.getInstance();
-        for (Character usedCharacter : game.getHangman().getUsedCharacters()) {
-            if (usedCharacter.toString().matches(PATTERN)) {
-                letters.append(usedCharacter).append("  ");
-            }
-        }
-        usedLetters.setText(letters.toString());
         changeImage(game.getHangman().getStatus());
         guessedLetters.setText(game.getHangman().getGuessedLetters());
     }
@@ -176,5 +164,4 @@ public class GameController implements Initializable {
         alert.setContentText(message);
         return alert;
     }
-
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.plauszta.ui.gui.controllers.HomeController">
+    <Pane prefHeight="400.0" prefWidth="600.0">
+        <HBox layoutX="114.0" layoutY="239.0" prefHeight="50.0" prefWidth="359.0">
+            <Button id="buttonOnePlayer" mnemonicParsing="false" onAction="#startOnePlayerGame"
+                    prefHeight="50.0" prefWidth="120.0" text="1 Player">
+                <font>
+                    <Font size="22.0"/>
+                </font>
+            </Button>
+            <Button id="buttonTwoPlayers" mnemonicParsing="false" onAction="#startTwoPlayersGame"
+                    prefHeight="50.0" prefWidth="120.0" text="2 Players">
+                <font>
+                    <Font size="22.0"/>
+                </font>
+                <HBox.margin>
+                    <Insets left="120.0"/>
+                </HBox.margin>
+            </Button>
+        </HBox>
+        <Label contentDisplay="CENTER" layoutX="80.0" layoutY="81.0" prefHeight="64.0" prefWidth="214.0"
+               text="Hangman">
+            <font>
+                <Font name="Calibri Bold Italic" size="52.0"/>
+            </font>
+        </Label>
+        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="347.0" layoutY="38.0" pickOnBounds="true"
+                   preserveRatio="true">
+            <Image url="@6.jpg"/>
+        </ImageView>
+        <ChoiceBox fx:id="choiceBoxLanguage" layoutX="462.0" layoutY="361.0" prefHeight="25.0"
+                   prefWidth="120.0"/>
+    </Pane>
+</AnchorPane>
