@@ -37,6 +37,7 @@ public class HomeController implements Initializable {
                         WordDatabase.getInstance().setEnglishVersion(newValue.intValue() == 0);
                     }
                 });
+
         WordDatabase.getInstance().init();
     }
 
@@ -46,7 +47,7 @@ public class HomeController implements Initializable {
         game.setMode(GameMode.ONE_PLAYER);
         game.changeWordForHangman();
 
-        changeScene(event, "game.fxml");
+        changeScene(event, "gameNewVersion.fxml");
     }
 
     @FXML
