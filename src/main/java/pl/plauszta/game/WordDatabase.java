@@ -1,13 +1,17 @@
 package pl.plauszta.game;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class WordDatabase {
@@ -95,7 +99,17 @@ public class WordDatabase {
     }
 
     public void setEnglishVersion(boolean englishVersion) {
+        if (englishVersion == this.englishVersion) {
+            return;
+        }
+
         this.englishVersion = englishVersion;
+
+        if (englishVersion) {
+            downloadWordsFromUrl(PATH_ENGLISH_WORDS);
+        } else {
+            downloadWordsFromFile(PATH_POLISH_WORDS);
+        }
     }
 
     public boolean isEnglishVersion() {
